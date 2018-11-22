@@ -1,16 +1,18 @@
 package beans;
 
 public class CartaoDePonto {
-    private Integer horaEntrada, horaSaida;
+    private Integer horaEntrada, horaSaida, week;
 
     public CartaoDePonto() {
         horaEntrada = 0;
         horaSaida = 0;
+        week = 0;
     }
 
-    public CartaoDePonto(Integer horaEntrada, Integer horaSaida) {
+    public CartaoDePonto(Integer horaEntrada, Integer horaSaida, Integer week) {
         this.horaEntrada = horaEntrada;
         this.horaSaida = horaSaida;
+        this.week = week;
     }
 
     public void setHoraEntrada(Integer horaEntrada) {
@@ -30,6 +32,13 @@ public class CartaoDePonto {
         return this.horaEntrada;
     }
 
+    public Integer getWeek() {
+        return week;
+    }
+
+    public void setWeek(Integer week) {
+        this.week = week;
+    }
 
     public Double getSalario(Double salarioBase) {
         int horas = getHoraSaida() - getHoraEntrada();

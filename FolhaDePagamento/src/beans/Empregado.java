@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Empregado {
@@ -78,4 +79,10 @@ public class Empregado {
     public String toString() {
         return this.getCodigoEmp() + " " + this.getNome();
     }
+
+    public static Comparator<Empregado> compareToId = new Comparator<Empregado>() {
+        public int compare(Empregado e1, Empregado e2) {
+            return e1.getCodigoEmp() > e2.getCodigoEmp() ? 1 : 0;
+        }
+    };
 }

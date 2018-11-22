@@ -59,11 +59,34 @@ public class Salario {
         return this.tipoEmpregado;
     }
 
-    public Double getSalarioLiquido() {
+    public void setTipoEmpregado(Integer tipoEmpregado) {
+        this.tipoEmpregado = tipoEmpregado;
+    }
+
+    public List<CartaoDePonto> getPonto() {
+        return ponto;
+    }
+
+    public void setPonto(List<CartaoDePonto> ponto) {
+        this.ponto = ponto;
+    }
+
+    public Vendas getVendas() {
+        return vendas;
+    }
+
+    public void setVendas(Vendas vendas) {
+        this.vendas = vendas;
+    }
+
+    public Double getSalarioLiquido(Integer week) {
         Double salarioBruto = 0.0;
         if(this.getTipoEmpregado() == 1) {
             for(CartaoDePonto c : ponto) {
-                salarioBruto += c.getSalario(this.salarioBruto);
+                if(c.getWeek() == week) {
+                    salarioBruto += c.getSalario(this.salarioBruto);
+                }
+
             }
         } else if(this.getTipoEmpregado() == 3) {
             salarioBruto = this.salarioBruto;
@@ -74,8 +97,8 @@ public class Salario {
         return salarioBruto - this.getTaxas().calcTaxas();
     }
 
-    public void setPonto(Integer horaEntrada, Integer horaSaida) {
-        this.ponto.add(new CartaoDePonto(horaEntrada, horaSaida));
+    public void setPonto(Integer horaEntrada, Integer horaSaida, Integer week) {
+        this.ponto.add(new CartaoDePonto(horaEntrada, horaSaida, week));
     }
 
     public static Salario cadastraSalario() {
