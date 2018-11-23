@@ -11,6 +11,7 @@ public class Salario {
     private List<CartaoDePonto> ponto;
     private Vendas vendas;
     private String tipoPagamento;
+    private Integer qtd_taxas;
 
 
     public Salario () {
@@ -19,6 +20,8 @@ public class Salario {
         this.taxas = new ArrayList<>();
         this.ponto = null;
         this.tipoPagamento = null;
+        this.qtd_taxas = 0;
+
     }
 
     public Salario(Integer tipoEmpregado, Double salarioBruto, List<Taxa> taxa, String tipoPagamento) {
@@ -26,6 +29,7 @@ public class Salario {
         this.taxas = taxa;
         this.tipoEmpregado = tipoEmpregado;
         this.tipoPagamento = tipoPagamento;
+        this.qtd_taxas = 0;
     }
 
     public String getTipoPagamento() {
@@ -122,7 +126,7 @@ public class Salario {
         return s;
     }
     public void addTaxa(Double valorTaxa, String descricao) {
-        taxas.add(new Taxa(valorTaxa, descricao, taxas.get(taxas.size() - 1).codigoTaxa + 1));
+        taxas.add(new Taxa(valorTaxa, descricao, ++qtd_taxas));
     }
 
     public Double calcTaxas() {
