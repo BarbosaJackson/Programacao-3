@@ -16,14 +16,13 @@ public class CartaoDePonto {
     }
 
     public void setHoraEntrada(Integer horaEntrada) {
-        if(horaEntrada >= 0 && horaEntrada <= 23) {
-            this.horaEntrada = horaEntrada;
-        }
+        this.horaEntrada = horaEntrada;
     }
 
     public void setHoraSaida(Integer horaSaida) {
         this.horaSaida = horaSaida;
     }
+
     public Integer getHoraSaida() {
         return this.horaSaida;
     }

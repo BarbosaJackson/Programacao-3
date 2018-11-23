@@ -4,15 +4,18 @@ public class Taxa {
 
    private Double valorTaxa;
    private String descricao;
+   public Integer codigoTaxa;
 
     public Taxa() {
         valorTaxa = null;
         descricao = null;
+        codigoTaxa = 0;
     }
 
-    public Taxa(Double valorTaxa, String descricao) {
+    public Taxa(Double valorTaxa, String descricao, Integer codigoTaxa) {
         this.valorTaxa = valorTaxa;
         this.descricao = descricao;
+        this.codigoTaxa = codigoTaxa;
     }
 
     public Double getValorTaxa() {
@@ -30,4 +33,5 @@ public class Taxa {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
 }

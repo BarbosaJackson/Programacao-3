@@ -6,23 +6,34 @@ import java.util.Scanner;
 
 public class Salario {
     private Integer tipoEmpregado;
-    private Double salarioBruto;
+    private Double salarioBase;
     private List<Taxa> taxas;
     private List<CartaoDePonto> ponto;
     private Vendas vendas;
+    private String tipoPagamento;
+
 
     public Salario () {
         this.tipoEmpregado = null;
-        this.salarioBruto = null;
+        this.salarioBase = null;
         this.taxas = new ArrayList<>();
         this.ponto = null;
+        this.tipoPagamento = null;
     }
 
-    public Salario(Integer tipoEmpregado, Double salarioBruto, List<Taxa> taxa) {
-        this.salarioBruto = salarioBruto;
+    public Salario(Integer tipoEmpregado, Double salarioBruto, List<Taxa> taxa, String tipoPagamento) {
+        this.salarioBase = salarioBruto;
         this.taxas = taxa;
         this.tipoEmpregado = tipoEmpregado;
-        this.ponto = null;
+        this.tipoPagamento = tipoPagamento;
+    }
+
+    public String getTipoPagamento() {
+        return tipoPagamento;
+    }
+
+    public void setTipoPagamento(String tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
     }
 
     public void setTipoEmpregado(String tipoEmpregado) {
@@ -39,16 +50,16 @@ public class Salario {
         }
     }
 
-    public void setSalarioBruto(Double salarioBruto) {
-        this.salarioBruto = salarioBruto;
+    public void setSalarioBase(Double salarioBruto) {
+        this.salarioBase = salarioBruto;
     }
 
     public void setTaxas(List<Taxa> taxa) {
         this.taxas = taxa;
     }
 
-    public Double getSalarioBruto() {
-        return  this.salarioBruto;
+    public Double getSalarioBase() {
+        return  this.salarioBase;
     }
 
     public List<Taxa> getTaxas() {
@@ -80,16 +91,16 @@ public class Salario {
     }
 
     public Double getSalarioLiquido(Integer week) {
-        Double salarioBruto = 0.0;
+        Double salarioBruto = this.salarioBase;
         if(this.getTipoEmpregado() == 1) {
             for(CartaoDePonto c : ponto) {
                 if(c.getWeek() == week) {
-                    salarioBruto += c.getSalario(this.salarioBruto);
+                    salarioBruto += c.getSalario(this.salarioBase);
                 }
 
             }
         } else if(this.getTipoEmpregado() == 3) {
-            salarioBruto = this.salarioBruto;
+            salarioBruto = this.salarioBase;
             for(Double v : vendas.getVendas()) {
                 salarioBruto += v;
             }
@@ -106,11 +117,12 @@ public class Salario {
         Scanner sc = new Scanner(System.in);
         System.out.print("Digite o tipo de empregado (hourly | salaried | commissioned): ");
         s.setTipoEmpregado(sc.nextLine());
-        System.out.print("");
+        System.out.print("Digite o salario base do empregado: ");
+        s.setSalarioBase(sc.nextDouble());
         return s;
     }
     public void addTaxa(Double valorTaxa, String descricao) {
-        taxas.add(new Taxa(valorTaxa, descricao));
+        taxas.add(new Taxa(valorTaxa, descricao, taxas.get(taxas.size() - 1).codigoTaxa + 1));
     }
 
     public Double calcTaxas() {

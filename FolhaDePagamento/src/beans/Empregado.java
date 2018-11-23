@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class Empregado {
+    private boolean pertenceSindicato;
     private Integer codigoEmp, codigoSindicato;
     private Endereco endereco;
     private Salario salario;
@@ -65,6 +66,14 @@ public class Empregado {
         return this.nome;
     }
 
+    public boolean isPertenceSindicato() {
+        return pertenceSindicato;
+    }
+
+    public void setPertenceSindicato(boolean pertenceSindicato) {
+        this.pertenceSindicato = pertenceSindicato;
+    }
+
     public static Empregado cadastraEmpregado(Integer codigoEmp) {
         Empregado emp = new Empregado();
         Scanner sc = new Scanner(System.in);
@@ -73,9 +82,20 @@ public class Empregado {
         emp.setNome(sc.nextLine());
         emp.setEndereco(Endereco.cadastraEndereco());
         emp.setSalario(Salario.cadastraSalario());
+        System.out.println("Pertence ao sindicato?\n[ 1 ] Sim\n[ 0 ] Não\n=>");
+        emp.pertenceSindicato  = (sc.nextInt() == 1);
+        if(emp.pertenceSindicato) {
+            sc = new Scanner(System.in);
+            System.out.println("Digite o código do sindicato: ");
+            emp.codigoSindicato = sc.nextInt();
+            System.out.print("Digite o valor da taxa sindical: ");
+            emp.getSalario().addTaxa(sc.nextDouble(), "Taxa sindical");
+
+        }
         return emp;
     }
 
+    @Override
     public String toString() {
         return this.getCodigoEmp() + " " + this.getNome();
     }

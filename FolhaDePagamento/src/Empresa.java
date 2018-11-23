@@ -21,12 +21,12 @@ public class Empresa {
         Scanner input = new Scanner(System.in);
         Integer current_week = 1, current_day = 1, current_month = 1, current_year = 1;
         while(true) {
-            System.out.println("[ 1  ] Adicionar funcionario\n" + // checked
-                    "[ 2  ] Remover funcionario\n" + // checked
-                    "[ 3  ] Lançar um cartão de ponto\n" + // cheked
-                    "[ 4  ] Lançar um resultado de venda\n" + // checked
-                    "[ 5  ] Lançar uma taxa de serviço\n" + // TODO
-                    "[ 6  ] Alterar os detalhes de um empregado\n" + // TODO
+            System.out.println("[ 1  ] Adicionar funcionario\n" + // done
+                    "[ 2  ] Remover funcionario\n" + // done
+                    "[ 3  ] Lançar um cartão de ponto\n" + // done
+                    "[ 4  ] Lançar um resultado de venda\n" + // done
+                    "[ 5  ] Lançar uma taxa de serviço\n" + // done
+                    "[ 6  ] Alterar os detalhes de um empregado\n" + // done
                     "[ 7  ] Rodar folha de pagamento\n" + // TODO
                     "[ 8  ] Undo\n" + // TODO
                     "[ 9  ] Redo\n" + // TODO
@@ -34,7 +34,6 @@ public class Empresa {
                     "[ 11 ] Criar nova agenda de pagamento\n" + // TODO
                     "[ 0  ] Sair\n");
             int op = input.nextInt();
-
             if(op == 0) {
                 System.exit(0);
             } else if(op == 1) {
@@ -88,10 +87,31 @@ public class Empresa {
                         System.out.print("Digite a descrição da taxa: ");
                         String desc = input.nextLine();
                         emp.get(search_employee(emp, 0, emp.size(), code)).getSalario().addTaxa(taxa, desc);
+                    } else {
+                        System.out.println("Código inválido!");
                     }
+                } else {
+                    System.out.println("Nenhum funcionario cadastrado!");
                 }
             } else if(op == 6) {
-                
+                if(emp.size() > 0) {
+                    System.out.print("Digite o código do funcionario: ");
+                    Integer code = input.nextInt();
+                    if(code <= emp.get(emp.size() - 1).getCodigoEmp() && code > 0) {
+                        Integer pos;
+                        pos = search_employee(emp, 0, emp.size(), code);
+                        if(pos == -1) {
+                            System.out.println("Funcionario não encontrado!");
+                        } else {
+                            Empregado e = Empregado.cadastraEmpregado(emp.get(pos).getCodigoEmp());
+                            emp.set(pos, e);
+                        }
+                    } else {
+                        System.out.println("Código invalido");
+                    }
+                } else {
+                    System.out.println("Nenhum funcionario cadastrado!");
+                }
             } else if(op == 7) {
                 current_day++;
                 if (current_day == 7) {
