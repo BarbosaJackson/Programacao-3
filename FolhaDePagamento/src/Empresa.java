@@ -28,11 +28,11 @@ public class Empresa {
                     "[ 5  ] Lançar uma taxa de serviço\n" + // TODO
                     "[ 6  ] Alterar os detalhes de um empregado\n" + // TODO
                     "[ 7  ] Rodar folha de pagamento\n" + // TODO
-                    "[ 8  ] Undo" + // TODO
-                    "[ 9  ] Redo" + // TODO
-                    "[ 10 ] Agenda de pagamento" + // TODO
-                    "[ 11 ] Criar nova agenda de pagamento" + // TODO
-                    "[ 0  ] Sair");
+                    "[ 8  ] Undo\n" + // TODO
+                    "[ 9  ] Redo\n" + // TODO
+                    "[ 10 ] Agenda de pagamento\n" + // TODO
+                    "[ 11 ] Criar nova agenda de pagamento\n" + // TODO
+                    "[ 0  ] Sair\n");
             int op = input.nextInt();
 
             if(op == 0) {
@@ -43,7 +43,7 @@ public class Empresa {
                 if (emp.size() > 0) {
                     System.out.print("Digite o código do empregado que deseja remover: ");
                     int code = input.nextInt();
-                    if (code <= emp.get(emp.size() - 1).getCodigoEmp()) {
+                    if (code <= emp.get(emp.size() - 1).getCodigoEmp() && code > 0) {
                         Integer pos = search_employee(emp, 0, emp.size(), code);
                         if (pos != -1) {
                             emp.remove(emp.get(pos));
@@ -64,7 +64,7 @@ public class Empresa {
             } else if(op == 3) {
                 System.out.print("Digite o código do funcionario: ");
                 Integer code = input.nextInt();
-                if(code <= emp.get(emp.size() - 1).getCodigoEmp()) {
+                if(code <= emp.get(emp.size() - 1).getCodigoEmp() && code > 0) {
                     Integer horaEntrada, horaSaida;
                     horaEntrada = input.nextInt();
                     horaSaida = input.nextInt();
@@ -73,13 +73,26 @@ public class Empresa {
             } else if(op == 4) {
                 System.out.print("Digite o código do funcionario: ");
                 Integer code = input.nextInt();
-                if(code <= emp.get(emp.size() - 1).getCodigoEmp()) {
+                if(code <= emp.get(emp.size() - 1).getCodigoEmp() && code > 0) {
                     System.out.print("Digite o valor da venda: ");
                     emp.get(search_employee(emp, 0, emp.size(), code)).getSalario().getVendas().addVendas(current_week, current_month, input.nextDouble());
                 }
+            } else if(op == 5) {
+                if(emp.size() > 0) {
+                    System.out.print("Digite o código do fucionario: ");
+                    Integer code = input.nextInt();
+                    if (code <= emp.get(emp.size() - 1).getCodigoEmp() && code > 0) {
+                        System.out.print("Digite o valor da taxa: ");
+                        Double taxa = input.nextDouble();
+                        input = new Scanner(System.in);
+                        System.out.print("Digite a descrição da taxa: ");
+                        String desc = input.nextLine();
+                        emp.get(search_employee(emp, 0, emp.size(), code)).getSalario().addTaxa(taxa, desc);
+                    }
+                }
             } else if(op == 6) {
                 
-            }else if(op == 7) {
+            } else if(op == 7) {
                 current_day++;
                 if (current_day == 7) {
                     current_day = 1;

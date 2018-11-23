@@ -7,20 +7,20 @@ import java.util.Scanner;
 public class Salario {
     private Integer tipoEmpregado;
     private Double salarioBruto;
-    private Taxas taxas;
+    private List<Taxa> taxas;
     private List<CartaoDePonto> ponto;
     private Vendas vendas;
 
     public Salario () {
         this.tipoEmpregado = null;
         this.salarioBruto = null;
-        this.taxas = null;
+        this.taxas = new ArrayList<>();
         this.ponto = null;
     }
 
-    public Salario(Integer tipoEmpregado, Double salarioBruto, Taxas taxas) {
+    public Salario(Integer tipoEmpregado, Double salarioBruto, List<Taxa> taxa) {
         this.salarioBruto = salarioBruto;
-        this.taxas = taxas;
+        this.taxas = taxa;
         this.tipoEmpregado = tipoEmpregado;
         this.ponto = null;
     }
@@ -43,15 +43,15 @@ public class Salario {
         this.salarioBruto = salarioBruto;
     }
 
-    public void setTaxas(Taxas taxas) {
-        this.taxas = taxas;
+    public void setTaxas(List<Taxa> taxa) {
+        this.taxas = taxa;
     }
 
     public Double getSalarioBruto() {
         return  this.salarioBruto;
     }
 
-    public Taxas getTaxas() {
+    public List<Taxa> getTaxas() {
         return this.taxas;
     }
 
@@ -94,7 +94,7 @@ public class Salario {
                 salarioBruto += v;
             }
         }
-        return salarioBruto - this.getTaxas().calcTaxas();
+        return salarioBruto - this.calcTaxas();
     }
 
     public void setPonto(Integer horaEntrada, Integer horaSaida, Integer week) {
@@ -108,5 +108,16 @@ public class Salario {
         s.setTipoEmpregado(sc.nextLine());
         System.out.print("");
         return s;
+    }
+    public void addTaxa(Double valorTaxa, String descricao) {
+        taxas.add(new Taxa(valorTaxa, descricao));
+    }
+
+    public Double calcTaxas() {
+        Double sum = 0.0;
+        for(Taxa t : taxas) {
+            sum += t.getValorTaxa();
+        }
+        return sum;
     }
 }
