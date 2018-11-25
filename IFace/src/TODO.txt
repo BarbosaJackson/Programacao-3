@@ -1,0 +1,9 @@
+[ x ]  Criar um usuario
+[ x ]  Adicionar atributos ao perfil do usuario criado
+[ x ]  Editar atributos do perfil de um usuario criado
+[ x ]  Adicionar amigos
+[ x ]  Enviar mensagem
+[ x ]  Criar comunidade
+[   ]  Entrar para uma comunidade
+[ x ]  Recuperar seus dados
+[   ]  Apagar conta

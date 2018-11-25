@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FolhaDePagamento.iml" filepath="$PROJECT_DIR$/FolhaDePagamento.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IFace.iml" filepath="$PROJECT_DIR$/IFace.iml" />
     </modules>
   </component>
 </project>
