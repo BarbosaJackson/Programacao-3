@@ -271,21 +271,24 @@ public class User {
         this.communities = communities;
     }
 
-    public List<User> removeUser(List<User> users, Integer myPos) {
+    public List<User> removeUser(List<User> users, List<Community> communities, Integer myPos) {
         for(User u : this.friends) {
             for(User u2 : users) {
                 if(u.getLogin().equals(u2.getLogin())) {
                     for(int i = 0; i < u2.getReiceived().size(); i++) {
+                        // remove todas as mensagens que foram enviadas aos amigos do perfil deles
                         if(u2.getReiceived().get(i).getLoginFrom().equals(this.login)){
                             u2.getReiceived().remove(i);
                             i--;
                         }
                     }
+                    // remove todas as mensagens enviadas dos amigos pra você
                     for(int i = 0; i < u2.getSent().size(); i++) {
                         if(u2.getSent().get(i).getLoginTo().equals(this.login)) {
                             u2.getSent().remove(i);
                         }
                     }
+                    // remove seu perfil da conta dos seus amigos
                     for(int i = 0; i < u2.getFriends().size(); i++) {
                         if(u2.getFriends().get(i).getLogin().equals(this.login)) {
                             u2.getFriends().remove(i);

@@ -7,11 +7,11 @@ public class Main {
         Integer opLogin, codeUsers = 1;
         List<User> users = new ArrayList<User>();
         List<Community> communities = new ArrayList<>();
-//        users.add(new User("kcaj", "1234", "Jackson Barbosa", codeUsers++));
-//        users.add(new User("hrns", "1234", "Hiago Nunes", codeUsers++));
-//        users.add(new User("bcn", "1234", "Bruno Cavalcante", codeUsers++));
-//        users.get(1).addFriend(users, "kcaj", 1);
-//        users.get(2).addFriend(users, "kcaj", 2);
+        users.add(new User("kcaj", "1234", "Jackson Barbosa", codeUsers++));
+        users.add(new User("hrns", "1234", "Hiago Nunes", codeUsers++));
+        users.add(new User("bcn", "1234", "Bruno Cavalcante", codeUsers++));
+        users.get(1).addFriend(users, "kcaj", 1);
+        users.get(2).addFriend(users, "kcaj", 2);
 
         do {
             opLogin = UserForms.menu();
@@ -60,7 +60,18 @@ public class Main {
                                         + communities.get(posCom).getCommunityDescription());
                             }
                         } else if(opUser == 8) {
-                            users = users.get(posUser).removeUser(users, posUser);
+                            users = users.get(posUser).removeUser(users, communities, posUser);
+                            for(Community c : communities) {
+                                for(User u : c.getMembers()) {
+                                    if(u.getLogin().equals(users.get(posUser).getLogin())) {
+                                        c.getMembers().remove(u);
+                                        break;
+                                    }
+                                }
+                            }
+                            for(User c : users) {
+                                c.getNotifications().remove(posUser);
+                            }
                             users.remove(users.get(posUser));
                             break;
                         } else if(opUser == 9) {
