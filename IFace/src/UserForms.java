@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserForms {
+
     public static Integer menu(){
         System.out.print("Login\n" +
                 "-----------------\n" +
@@ -11,6 +12,7 @@ public class UserForms {
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();
     }
+
     public static Integer menu(User u) {
         System.out.println("Olá " + u.getName() + ", bem-vindo ao iFace\n" +
                 "Você tem " + u.getNotifications().size() + " solicitações de amizade\n" +
@@ -27,6 +29,7 @@ public class UserForms {
                 "[ 7 ] verificar as informações do seu perfil\n" +
                 "[ 8 ] Remover a sua conta\n" +
                 "[ 9 ] Checar solicitações de amizade\n" +
+                "[ 10 ] Enviar mensagem a uma comunidade\n" +
                 "[ 0 ] Sair");
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();

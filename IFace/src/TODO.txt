@@ -6,4 +6,4 @@
 [ x ]  Criar comunidade
 [   ]  Entrar para uma comunidade
 [ x ]  Recuperar seus dados
-[   ]  Apagar conta
+[ x ]  Apagar conta

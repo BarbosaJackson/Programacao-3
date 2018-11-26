@@ -6,11 +6,13 @@ public class Main {
     public static void main(String[] args) {
         Integer opLogin, codeUsers = 1;
         List<User> users = new ArrayList<User>();
-        users.add(new User("kcaj", "1234", "Jackson Barbosa", codeUsers++));
-        users.add(new User("hrns", "1234", "Hiago Nunes", codeUsers++));
-        users.add(new User("bcn", "1234", "Bruno Cavalcante", codeUsers++));
-        users.get(1).addFriend(users, "kcaj", 1);
-        users.get(2).addFriend(users, "kcaj", 2);
+        List<Community> communities = new ArrayList<>();
+//        users.add(new User("kcaj", "1234", "Jackson Barbosa", codeUsers++));
+//        users.add(new User("hrns", "1234", "Hiago Nunes", codeUsers++));
+//        users.add(new User("bcn", "1234", "Bruno Cavalcante", codeUsers++));
+//        users.get(1).addFriend(users, "kcaj", 1);
+//        users.get(2).addFriend(users, "kcaj", 2);
+
         do {
             opLogin = UserForms.menu();
             if(opLogin == 1) {
@@ -36,10 +38,10 @@ public class Main {
                             System.out.print("Digite o nome de usuário do amigo que você deseja enviar uma mensagem: ");
                             users = users.get(posUser).sendMessage(users, sc.nextLine());
                         } else if(opUser == 5) {
-                            users.get(posUser).createCommunity();
+                            users.get(posUser).createCommunity(communities);
                         } else if(opUser == 6) {
                             System.out.print("Digite o nome da comunidade que deseja participar: ");
-                            users.get(posUser).addCommunity(sc.nextLine());
+                            users.get(posUser).addCommunity(sc.nextLine(), communities);
                         } else if(opUser == 7) {
                             System.out.println("Dados do perfil\n-------------------");
                             System.out.println(users.get(posUser));
@@ -48,11 +50,37 @@ public class Main {
                                 System.out.println(u.getName() + " que tem o login: " + u.getLogin());
                             }
                             System.out.println("-------------------------\nMensagens recebidas:");
-                            for(Message m : users.get(posUser).getReiceived()){
+                            for(Message m  : users.get(posUser).getReiceived()){
                                 System.out.println("De: " + m.getLoginFrom() + "\nPara: " + m.getLoginTo() + "\n" + m.getMessage());
                             }
+                            System.out.println("---------------------\nComunidades: ");
+                            for(int i = 0; i < users.get(posUser).getCommunities().size(); i++) {
+                                int posCom = users.get(posUser).getCommunities().get(i);
+                                System.out.println(communities.get(posCom).getCommunityName() + ": "
+                                        + communities.get(posCom).getCommunityDescription());
+                            }
+                        } else if(opUser == 8) {
+                            users = users.get(posUser).removeUser(users, posUser);
+                            users.remove(users.get(posUser));
+                            break;
                         } else if(opUser == 9) {
                             users.get(posUser).checkNotifications(users);
+                        } else if(opUser == 10) {
+                            System.out.println("Digite o nome da comunidade: ");
+                            String cName = sc.nextLine();
+                            for(Community c : communities) {
+                                if(c.getCommunityName().equals(cName)) {
+                                    System.out.println("Digite a mensagem que deseja enviar");
+                                    c.sendMessage(users.get(posUser).getLogin(), sc.nextLine());
+                                    break;
+                                }
+                            }
+                        } else if(opUser == 13) {
+                            for(Community c : communities) {
+                                c.showMembers();
+                                System.out.println("\n\n");
+                                System.out.println(c.getLoginMaster());
+                            }
                         }
                         opUser = UserForms.menu(users.get(posUser));
                     }

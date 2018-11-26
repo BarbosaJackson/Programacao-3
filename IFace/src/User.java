@@ -10,7 +10,7 @@ public class User {
     private List<String> feature;
     private List<Integer> notifications;
     private List<Message> reiceived, sent;
-    private List<Community> communities;
+    private List<Integer> communities;
 
     public User(Integer codeUser) {
         this.codeUser = codeUser;
@@ -40,17 +40,12 @@ public class User {
         communities = new ArrayList<>();
     }
 
-    @Override
     public String toString() {
         String user = "Login: " + login + '\n' +
                 "Nome: " + name + '\n' +
                 "--------------------------------\nCaracteristicas adicionais:\n--------------------------------\n";
         for(int i = 0; i < feature.size(); i++) {
             user += descriptionFeature.get(i) + ": " + feature.get(i) + '\n';
-        }
-        user += "-------------------------\nComunidades:\n----------------------------\n";
-        for(int i = 0; i < communities.size(); i++) {
-            user += communities.get(i).getCommunityName();
         }
         return user;
     }
@@ -141,7 +136,6 @@ public class User {
         Scanner sc = new Scanner(System.in);
         for(int i = 0; i < this.getFriends().size(); i++) {
             if(loginFriend.equals(this.getFriends().get(i).getLogin())) {
-                System.out.println("here");
                 for(int j = 0; j < users.size(); j++) {
                     if(users.get(j).getLogin().equals(loginFriend)) {
                         System.out.println("Digite a mensagem que gostaria de enviar para " + users.get(j).getName());
@@ -157,13 +151,38 @@ public class User {
         return users;
     }
 
-    public void addCommunity(String communityName) {
-
+    public void addCommunity(String communityName, List<Community> communities) {
+        for(int i = 0; i < this.getCommunities().size(); i++) {
+            for(Community c : communities) {
+                if(c.getCommunityName().equals(communities.get(i).getCommunityName())){
+                    System.out.println("Você já participa dessa comunidade");
+                    return;
+                }
+            }
+        }
+        for(int i = 0; i < communities.size(); i++) {
+            if(communityName.equals(communities.get(i).getCommunityName())) {
+                this.getCommunities().add(i);
+                communities.get(i).getMembers().add(this);
+            }
+        }
     }
 
-    public void createCommunity() {
-        this.getCommunities().add(new Community(this.getLogin()).registerCommunity());
+    public void createCommunity(List<Community> communities) {
+        Community c = new Community(this.login).registerCommunity(this, communities);
+        communities.add(c);
+        addCommunity(c.getCommunityName(), communities);
     }
+
+    public boolean isFriend(String loginUser) {
+        for(User u : friends) {
+            if(loginUser.equals(u.getLogin())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getCodeUser() {
         return codeUser;
     }
@@ -244,11 +263,38 @@ public class User {
         this.sent = sent;
     }
 
-    public List<Community> getCommunities() {
+    public List<Integer> getCommunities() {
         return communities;
     }
 
-    public void setCommunities(List<Community> communities) {
+    public void setCommunities(List<Integer> communities) {
         this.communities = communities;
+    }
+
+    public List<User> removeUser(List<User> users, Integer myPos) {
+        for(User u : this.friends) {
+            for(User u2 : users) {
+                if(u.getLogin().equals(u2.getLogin())) {
+                    for(int i = 0; i < u2.getReiceived().size(); i++) {
+                        if(u2.getReiceived().get(i).getLoginFrom().equals(this.login)){
+                            u2.getReiceived().remove(i);
+                            i--;
+                        }
+                    }
+                    for(int i = 0; i < u2.getSent().size(); i++) {
+                        if(u2.getSent().get(i).getLoginTo().equals(this.login)) {
+                            u2.getSent().remove(i);
+                        }
+                    }
+                    for(int i = 0; i < u2.getFriends().size(); i++) {
+                        if(u2.getFriends().get(i).getLogin().equals(this.login)) {
+                            u2.getFriends().remove(i);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return users;
     }
 }
