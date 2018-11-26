@@ -7,11 +7,6 @@ public class Main {
         Integer opLogin, codeUsers = 1;
         List<User> users = new ArrayList<User>();
         List<Community> communities = new ArrayList<>();
-        users.add(new User("kcaj", "1234", "Jackson Barbosa", codeUsers++));
-        users.add(new User("hrns", "1234", "Hiago Nunes", codeUsers++));
-        users.add(new User("bcn", "1234", "Bruno Cavalcante", codeUsers++));
-        users.get(1).addFriend(users, "kcaj", 1);
-        users.get(2).addFriend(users, "kcaj", 2);
 
         do {
             opLogin = UserForms.menu();
@@ -86,12 +81,6 @@ public class Main {
                                     break;
                                 }
                             }
-                        } else if(opUser == 13) {
-                            for(Community c : communities) {
-                                c.showMembers();
-                                System.out.println("\n\n");
-                                System.out.println(c.getLoginMaster());
-                            }
                         }
                         opUser = UserForms.menu(users.get(posUser));
                     }
@@ -100,10 +89,6 @@ public class Main {
                 }
             } else if(opLogin == 2) {
                 users.add(new User(codeUsers++).registerUser(users));
-            } else if(opLogin == 13) {
-                for(User u : users) {
-                    System.out.println(u);
-                }
             } else if(opLogin != 0) {
                 System.out.println("Opção inválida!");
             }
