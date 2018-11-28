@@ -10,7 +10,7 @@ public class User {
     private List<String> feature;
     private List<Integer> notifications;
     private List<Message> reiceived, sent;
-    private List<Integer> communities;
+    private List<String> communities;
 
     public User(Integer codeUser) {
         this.codeUser = codeUser;
@@ -64,8 +64,19 @@ public class User {
     }
 
     public List<User> addFriend(List<User> u, String loginFriend, Integer myPos) {
+        if(isFriend(loginFriend)) {
+            System.out.println("Vocês já são amigos!!");
+            return u;
+        }
+
         for(int i = 0; i < u.size(); i++) {
             if(loginFriend.equals(u.get(i).getLogin())) {
+                for(int j = 0; j < u.get(i).getNotifications().size(); j++) {
+                    if(myPos == u.get(i).getNotifications().get(j)) {
+                        System.out.println("Você já enviou uma solicitação para este usuário!");
+                        return u;
+                    }
+                }
                 u.get(i).addNotification(myPos);
                 System.out.println("Solicitação enviada!");
                 return u;
@@ -151,27 +162,28 @@ public class User {
         return users;
     }
 
-    public void addCommunity(String communityName, List<Community> communities) {
+    public List<Community> addCommunity(String communityName, List<Community> communities) {
         for(int i = 0; i < this.getCommunities().size(); i++) {
-            for(Community c : communities) {
-                if(c.getCommunityName().equals(communities.get(i).getCommunityName())){
+                if(communityName.equals(communities.get(i).getCommunityName())){
                     System.out.println("Você já participa dessa comunidade");
-                    return;
-                }
+                    return communities;
             }
         }
-        for(int i = 0; i < communities.size(); i++) {
+        for(Integer i = 0; i < communities.size(); i++) {
             if(communityName.equals(communities.get(i).getCommunityName())) {
-                this.getCommunities().add(i);
+                this.getCommunities().add(communityName);
                 communities.get(i).getMembers().add(this);
+                System.out.println("Você foi inserido na comunidade");
             }
         }
+        return communities;
     }
 
-    public void createCommunity(List<Community> communities) {
+    public List<Community> createCommunity(List<Community> communities) {
         Community c = new Community(this.login).registerCommunity(this, communities);
         communities.add(c);
         addCommunity(c.getCommunityName(), communities);
+        return communities;
     }
 
     public boolean isFriend(String loginUser) {
@@ -263,11 +275,11 @@ public class User {
         this.sent = sent;
     }
 
-    public List<Integer> getCommunities() {
+    public List<String> getCommunities() {
         return communities;
     }
 
-    public void setCommunities(List<Integer> communities) {
+    public void setCommunities(List<String> communities) {
         this.communities = communities;
     }
 

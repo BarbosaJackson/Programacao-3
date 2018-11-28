@@ -41,7 +41,7 @@ public class Community {
             }
             flag = true;
         }
-        System.out.print("Digite a descrição da comunidade");
+        System.out.print("Digite a descrição da comunidade: ");
         c.setCommunityDescription(sc.nextLine());
         members.add(u);
         return c;
@@ -75,6 +75,18 @@ public class Community {
         return members;
     }
 
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
+
     public void showMembers() {
         System.out.println("Membros da comunidade: " + this.communityName);
         for(User u : this.members) {
@@ -92,5 +104,7 @@ public class Community {
         }
         System.out.println("Você não faz parte dessa comunidade\n");
     }
+
+
 
 }

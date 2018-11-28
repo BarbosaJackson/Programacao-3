@@ -20,16 +20,18 @@ public class UserForms {
                 "Você tem " + u.getFriends().size() + " amigos\n" +
                 "Você participa de " + u.getCommunities().size() + " comunidades\n" +
                 "O que deseja?\n" +
-                "[ 1 ] Editar perfil\n" +
-                "[ 2 ] Adicionar alguma informação ao perfil\n" +
-                "[ 3 ] Adicionar um amigo\n" +
-                "[ 4 ] Enviar uma mensagem\n" +
-                "[ 5 ] Criar uma comunidade\n" +
-                "[ 6 ] Adicionar uma comunidade\n" +
-                "[ 7 ] verificar as informações do seu perfil\n" +
-                "[ 8 ] Remover a sua conta\n" +
-                "[ 9 ] Checar solicitações de amizade\n" +
+                "[ 1  ] Editar perfil\n" +
+                "[ 2  ] Adicionar alguma informação ao perfil\n" +
+                "[ 3  ] Adicionar um amigo\n" +
+                "[ 4  ] Enviar uma mensagem\n" +
+                "[ 5  ] Criar uma comunidade\n" +
+                "[ 6  ] Adicionar uma comunidade\n" +
+                "[ 7  ] verificar as informações do seu perfil\n" +
+                "[ 8  ] Remover a sua conta\n" +
+                "[ 9  ] Checar solicitações de amizade\n" +
                 "[ 10 ] Enviar mensagem a uma comunidade\n" +
+                "[ 11 ] Gerenciar os membros de uma comunidade\n" +
+                "[ 12 ] Exibir membros de uma comunidade\n" +
                 "[ 0 ] Sair");
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();
