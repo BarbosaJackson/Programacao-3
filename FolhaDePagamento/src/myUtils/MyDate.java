@@ -11,6 +11,12 @@ public class MyDate {
 		this.year = year;
 	}
 
+	public MyDate () {
+		this.day = 0;
+		this.month = 0;
+		this.year = 0;
+	}
+
 	public void setDay(Integer day) {
 		while(day > 31 || day < 1) {
 			System.out.println("Dia inválido!");

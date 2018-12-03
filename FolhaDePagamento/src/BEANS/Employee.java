@@ -84,4 +84,10 @@ public class Employee {
 			typeEmployee = sc.nextLine();
 		}
 	}
+	public void incrementWorkedDays() {
+		this.workedDays++;
+	}
+	public void getQtdWorkedDays() {
+		return this.workedDays;
+	}
 }

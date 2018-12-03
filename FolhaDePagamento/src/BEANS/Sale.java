@@ -26,6 +26,11 @@ public class Sale {
 		this.date = date;
 	}
 	public void setValueSale(Double valueSale) {
+		while(valueSale < 0) {
+			System.out.println("Valor digitado para a venda é negativo!");
+			System.out.print("Digite um valor válido: ");
+			valueSale = new Scanner(System.in).nextDouble();
+		}
 		this.valueSale = valueSale;
 	}
 
@@ -42,9 +47,8 @@ public class Sale {
 
 	public static Sale registerSale(MyDate date) {
 		Sale sale = new Sale(date);
-		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o valor da venda: ");
-		sale.setValueSale(sc.nextDouble());
+		sale.setValueSale(new Scanner(System.in).nextDouble());
 		return sale;
 	}
 }
