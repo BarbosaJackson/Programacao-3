@@ -17,14 +17,14 @@ public class Payment {
 		this.paymentDay = paymentDay;
 	}
 
-	public void setTypePayment(String typePayment, List<Payment> payments) {
+	public void setTypePayment(String typePayment, List<Payment> payments) {		
 		for(Payment p : payments) {
 			if(p.getTypePayment().equals(typePayment)) {
 				System.out.println("este tipo de pamento já está cadastrado!");
 				return;
 			}
 		}
-		this.typePayment = payments;
+		this.typePayment = typePayment;
 	}
 
 	public void setPaymentDay(Integer paymentDay) {
@@ -41,6 +41,15 @@ public class Payment {
 	}
 	public Integer getPaymentDay() {
 		return this.paymentDay;
+	}
+
+	public static Payment registerPayment(List<Payment> payments) {
+		Payment p = new Payment();
+		System.out.print("Digite o dia de pagamento: ");
+		p.setPaymentDay(new Scanner(System.in).nextInt());
+		System.out.print("Digite o tipo de pagamento: ");
+		p.setTypePayment(new Scanner(System.in).nextLine(), payments);
+		return p;
 	}
 
 	public String toString() {
